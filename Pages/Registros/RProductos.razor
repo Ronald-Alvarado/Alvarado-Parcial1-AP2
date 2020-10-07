@@ -37,19 +37,19 @@
 
                 <div class="form-group">
 					<label>Existéncia</label>
-					<InputNumber @bind-Value="producto.Existencia" class="form-control"/>
+					<InputNumber @bind-Value="producto.Existencia" @onfocusout="Calcular" class="form-control"/>
 					<ValidationMessage For="@(() => producto.Existencia)"/>
 				</div>
 
                 <div class="form-group">
 					<label>Costo</label>
-					<InputNumber @bind-Value="producto.Costo" class="form-control"/>
+					<InputNumber @bind-Value="producto.Costo" @onfocusout="Calcular" class="form-control"/>
 					<ValidationMessage For="@(() => producto.Costo)"/>
 				</div>
 
 				<div class="form-group">
 					<label> Valor en Inventario</label>
-					<InputNumber @bind-Value="producto.ValorInventario" class="form-control"/>
+					<InputNumber @bind-Value="producto.ValorInventario" readonly="True" class="form-control"/>
 					<ValidationMessage For="@(() => producto.ValorInventario)"/>
 				</div>            	
 
@@ -85,6 +85,10 @@
     protected override void OnInitialized()
     {
         Nuevo();
+    }
+
+    private void Calcular(){
+        producto.ValorInventario = producto.Existencia * producto.Costo;
     }
 
     private void Nuevo()
