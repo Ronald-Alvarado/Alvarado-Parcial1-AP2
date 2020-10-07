@@ -10,12 +10,12 @@ namespace Alvarado_Parcial1_AP2.Models{
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "Debe poner una Existencia")]
-        public string Existencia { get; set; }
+        public float Existencia { get; set; }
 
         [Required(ErrorMessage = "Debe poner un Costo")]
-        public string Costo { get; set; }
+        public float Costo { get; set; }
 
         
-        public string ValorInventario { get; set; }
+        public float ValorInventario { get; set; }
     }
 }

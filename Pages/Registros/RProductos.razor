@@ -1,0 +1,141 @@
+@page "/Producto"
+
+@using Alvarado_Parcial1_AP2.Models;
+@using Alvarado_Parcial1_AP2.BLL;
+
+@inject IToastService Toast
+
+<EditForm Model="producto" OnValidSubmit="Guardar">
+	<DataAnnotationsValidator/>
+    
+    <div class="container shadow-lg p-3 rb-5 bg-white rounded col-md-12">	
+		<div class="card">
+
+			<div class="card-header">
+				<h3>Registro de Productos</h3>
+			</div>
+			
+			<div class="card-body">
+<!-- Cuerpo --->
+
+                <div class="form-group">
+					<label>ProductoId</label>
+
+					<div class="input-group">
+						<InputNumber @bind-Value="producto.ProductoId" class="form-control"/>
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">Buscar</button>
+						</div>
+					</div>	
+				</div>
+
+				<div class="form-group">
+					<label>Descripción</label>
+					<InputText @bind-Value="producto.Descripcion" class="form-control"/>
+					<ValidationMessage For="@(() => producto.Descripcion)"/>
+				</div>
+
+                <div class="form-group">
+					<label>Existéncia</label>
+					<InputNumber @bind-Value="producto.Existencia" class="form-control"/>
+					<ValidationMessage For="@(() => producto.Existencia)"/>
+				</div>
+
+                <div class="form-group">
+					<label>Costo</label>
+					<InputNumber @bind-Value="producto.Costo" class="form-control"/>
+					<ValidationMessage For="@(() => producto.Costo)"/>
+				</div>
+
+				<div class="form-group">
+					<label> Valor en Inventario</label>
+					<InputNumber @bind-Value="producto.ValorInventario" class="form-control"/>
+					<ValidationMessage For="@(() => producto.ValorInventario)"/>
+				</div>            	
+
+<!--Botones--->				
+                <div class="form-group text-center" display: inline-block>
+
+					<div class="btn-group mr-5" role="group" aria-label="First group">
+
+						<button type="button" class="btn btn-outline-secondary" @onclick="Nuevo">Nuevo</button>
+
+					</div>
+
+					<div class="btn-group mr-5" role="group" aria-label="Second group">
+
+						<button type="submit" class="btn btn-outline-success">Guardar</button>
+
+					</div>
+					
+					<div class="btn-group" role="group" aria-label="Third group">
+
+						<button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</EditForm>
+
+@code{
+    private Productos producto = new Productos();
+
+    protected override void OnInitialized()
+    {
+        Nuevo();
+    }
+
+    private void Nuevo()
+    {
+        producto = new Productos();
+    }
+
+    private void Guardar()
+    {
+        bool guardar;
+
+        guardar = ProductosBLL.Guardar(producto);
+
+        if (guardar)
+        {
+            Nuevo();
+            Toast.ShowSuccess("Se ha Guardado Exitosamente");
+        }
+        else
+            Toast.ShowError("Error, no se pudo Guardar");            
+    }
+
+    private void Buscar()
+    {
+         if (producto.ProductoId> 0)
+         {
+             var encontrar = ProductosBLL.Buscar(producto.ProductoId);
+             
+             if (encontrar != null)
+             {
+                 producto = encontrar;
+			 }
+             else
+             {
+                 Toast.ShowWarning("No se pudo localizar el Producto indicado");
+			 }
+         }       
+    }
+
+    private void Eliminar()
+    {
+        bool eliminar;
+
+        eliminar = ProductosBLL.Eliminar(producto.ProductoId);
+
+        if (eliminar)
+        {
+            Nuevo();
+            Toast.ShowSuccess("Se ha Eliminado Exitosamente");
+        }
+        else
+            Toast.ShowError("No se pudo Eliminar el Producto indicado");     
+    }
+}

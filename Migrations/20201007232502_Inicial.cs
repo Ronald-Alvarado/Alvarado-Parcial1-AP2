@@ -13,9 +13,9 @@ namespace Alvarado_Parcial1_AP2.Migrations
                     ProductoId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Descripcion = table.Column<string>(nullable: false),
-                    Existencia = table.Column<string>(nullable: false),
-                    Costo = table.Column<string>(nullable: false),
-                    ValorInventario = table.Column<string>(nullable: true)
+                    Existencia = table.Column<float>(nullable: false),
+                    Costo = table.Column<float>(nullable: false),
+                    ValorInventario = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -21,20 +21,18 @@ namespace Alvarado_Parcial1_AP2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Costo")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<float>("Costo")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Existencia")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<float>("Existencia")
+                        .HasColumnType("REAL");
 
-                    b.Property<string>("ValorInventario")
-                        .HasColumnType("TEXT");
+                    b.Property<float>("ValorInventario")
+                        .HasColumnType("REAL");
 
                     b.HasKey("ProductoId");
 

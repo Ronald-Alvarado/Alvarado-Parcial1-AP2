@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Alvarado_Parcial1_AP2.DAL;
+using Alvarado_Parcial1_AP2.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Alvarado_Parcial1_AP2.Models{
+namespace Alvarado_Parcial1_AP2.BLL{
 
     public class ProductosBLL{
 
         Productos producto = new Productos();
 
-        private static bool Guardar(Productos producto)
+        public static bool Guardar(Productos producto)
         {
             if(!Existe(producto.ProductoId))
                 return Insertar(producto);
@@ -19,7 +20,7 @@ namespace Alvarado_Parcial1_AP2.Models{
                 return Modificar(producto);
         }
 
-        private static bool Existe(int id)
+        public static bool Existe(int id)
         {
             Contexto contexto = new Contexto();
             bool existe = false;
@@ -39,7 +40,7 @@ namespace Alvarado_Parcial1_AP2.Models{
             return existe;
         }
 
-        private static bool Insertar(Productos productos)
+        public static bool Insertar(Productos productos)
         {
             Contexto contexto = new Contexto();
             bool insertar = false;
@@ -60,7 +61,7 @@ namespace Alvarado_Parcial1_AP2.Models{
             return insertar;
         }
 
-        private static bool Modificar(Productos productos)
+        public static bool Modificar(Productos productos)
         {
             Contexto contexto = new Contexto();
             bool modificar = false;
@@ -81,7 +82,7 @@ namespace Alvarado_Parcial1_AP2.Models{
             return modificar;
         }
 
-        private static bool Eliminar(int id)
+        public static bool Eliminar(int id)
         {
             Contexto contexto = new Contexto();
             bool eliminar = false;
